@@ -1,5 +1,6 @@
 package com.sorcererscode.fileflow.config;
 
+import com.sorcererscode.fileflow.users.UserRepository;
 import com.sorcererscode.fileflow.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Bean
     public ModelMapper modelMapper() {
@@ -37,7 +38,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userService.findUserByEmail(username)
+        return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", username)));
     }
 

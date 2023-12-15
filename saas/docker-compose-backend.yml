@@ -19,7 +19,7 @@ services:
         "spring.datasource.password" : "$SPRING_DATASOURCE_PASSWORD",
         "server.port": $SERVER_PORT,
         "spring.jpa.hibernate.ddl-auto" : "update"}'
-  eleave_db:
+  fileflow_db:
     container_name: fileflow_db
     image: postgres:latest
     environment:

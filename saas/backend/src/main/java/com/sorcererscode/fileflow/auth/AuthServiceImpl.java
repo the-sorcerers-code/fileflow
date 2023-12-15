@@ -48,7 +48,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse registerUser(UserInput input) {
-        return null;
+        User user = userService.create(input);
+        String jwtToken = jwtService.generateJwtToken(user);
+        return LoginResponse.builder()
+                .token(jwtToken)
+                .user(modelMapper.map(user, UserDto.class))
+                .build();
     }
 
     private void authenticateUser(String username, String password) throws LoginException {

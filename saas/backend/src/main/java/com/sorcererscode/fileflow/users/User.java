@@ -21,6 +21,8 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ff_user_seq")
+    @SequenceGenerator(name = "ff_user_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "email", unique = true, nullable = false)
