@@ -1,7 +1,7 @@
 package com.sorcererscode.fileflow.auth;
 
 import com.sorcererscode.fileflow.auth.dtos.LoginResponse;
-import com.sorcererscode.fileflow.auth.dtos.UserLogin;
+import com.sorcererscode.fileflow.auth.dtos.LoginInput;
 import com.sorcererscode.fileflow.users.dtos.UserInput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody UserLogin request)
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginInput request)
             throws LoginException {
         LoginResponse response = authService.loginUser(request);
         return ResponseEntity.ok(response);

@@ -1,7 +1,7 @@
 package com.sorcererscode.fileflow.auth;
 
 import com.sorcererscode.fileflow.auth.dtos.LoginResponse;
-import com.sorcererscode.fileflow.auth.dtos.UserLogin;
+import com.sorcererscode.fileflow.auth.dtos.LoginInput;
 import com.sorcererscode.fileflow.security.JwtService;
 import com.sorcererscode.fileflow.users.User;
 import com.sorcererscode.fileflow.users.UserService;
@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Override
-    public LoginResponse loginUser(UserLogin input) throws LoginException {
+    public LoginResponse loginUser(LoginInput input) throws LoginException {
         authenticateUser(input.getEmail(), input.getPassword());
 
         User user = userService.findUserByEmail(input.getEmail())
