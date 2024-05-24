@@ -10,6 +10,8 @@ services:
       - "8295:8295"
     env_file:
       - .env
+    volumes:
+      - ff-data:/data
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.driverClassName": "org.postgresql.Driver",
@@ -35,3 +37,4 @@ services:
 volumes:
   postgres-db:
     driver: local
+  ff-data:

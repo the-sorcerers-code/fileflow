@@ -21,10 +21,24 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
+        String[] whiteListedUrls = {
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/v3/api-docs/**",
+                "/api/public/**",
+                "/api/public/authenticate",
+                "/actuator/*",
+                "/swagger-ui/**",
+                "/auth/**"
+        };
 
         security.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests.requestMatchers("/auth/**")
+                        authorizeRequests.requestMatchers(whiteListedUrls)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
