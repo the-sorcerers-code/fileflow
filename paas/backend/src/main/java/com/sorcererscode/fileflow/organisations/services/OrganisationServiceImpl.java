@@ -5,6 +5,7 @@ import com.sorcererscode.fileflow.organisations.db.OrganisationRepository;
 import com.sorcererscode.fileflow.organisations.dtos.OrganisationInput;
 import com.sorcererscode.fileflow.organisations.dtos.OrganisationResponse;
 import com.sorcererscode.fileflow.users.User;
+import com.sorcererscode.fileflow.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,18 @@ public class OrganisationServiceImpl implements OrganisationService{
     private OrganisationRepository organisationRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public OrganisationResponse create(OrganisationInput input) {
         Organisation organisation = modelMapper.map(input, Organisation.class);
+
+        User maintainer = userService.get(input.getMaintainerId());
+
+        organisation.setMaintainer(maintainer);
 
         organisationRepository.save(organisation);
 

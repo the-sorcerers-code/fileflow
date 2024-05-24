@@ -9,4 +9,6 @@ public interface UserService {
     User create(UserInput input);
 
     Optional<User> findUserByEmail(String email);
+
+    User get(long id);
 }

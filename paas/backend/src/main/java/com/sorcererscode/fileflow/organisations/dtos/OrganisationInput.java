@@ -6,4 +6,5 @@ import lombok.Data;
 public class OrganisationInput {
     private String name;
     private String address;
+    private long maintainerId;
 }
