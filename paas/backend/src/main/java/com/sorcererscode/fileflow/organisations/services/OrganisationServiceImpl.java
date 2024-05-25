@@ -8,9 +8,11 @@ import com.sorcererscode.fileflow.users.User;
 import com.sorcererscode.fileflow.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -26,10 +28,8 @@ public class OrganisationServiceImpl implements OrganisationService{
     private ModelMapper modelMapper;
 
     @Override
-    public OrganisationResponse create(OrganisationInput input) {
+    public OrganisationResponse create(OrganisationInput input, User maintainer) {
         Organisation organisation = modelMapper.map(input, Organisation.class);
-
-        User maintainer = userService.get(input.getMaintainerId());
 
         organisation.setMaintainer(maintainer);
 
@@ -47,6 +47,18 @@ public class OrganisationServiceImpl implements OrganisationService{
     @Override
     public List<OrganisationResponse> getAll(int page, int limit) {
         return null;
+    }
+
+    @Override
+    public List<OrganisationResponse> getUserOrganisations(User maintainer, int page, int limit) {
+
+        List<Organisation> userOrganisations = organisationRepository.findByMaintainer(
+                maintainer,
+                PageRequest.of(page - 1, limit)
+        );
+
+        return userOrganisations.stream().map(org -> modelMapper.map(org, OrganisationResponse.class))
+                .toList();
     }
 
     @Override

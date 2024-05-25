@@ -12,9 +12,22 @@ This is a file sharing SAAS (Software as a Service) platform that allows users t
 - Collaborative file editing and commenting
 - Multi-language SDK for easy integration
 
+## How to Run the Server
+
+- Install docker on your machine and make sure docker-compose is installed
+- After cloning the repository, navigate to the PAAS folder, copy the `.env.example` file to `.env` and fill in the required fields with your own values. You can also change the port number if you want to, by changing the configuration of `SERVER_PORT`.
+- Once that has been done, run the following command inside that folder to start the server:
+
+```bash
+docker-compose -f docker-compose-backend.yml up -d
+```
+
+- This command will start the backend on port 8295
+- Navigate to [http://localhost:8295/api/v1/swagger-ui/index.html](http://localhost:8295/api/v1/swagger-ui/index.html) to view the swagger documentation for the backend
+
 ## Getting Started
 
-To get started with the file sharing SAAS platform, follow these steps:
+To get started with the file sharing PAAS platform, follow these steps:
 
 1. Sign up for an account on the platform's website.
 2. Generate API keys for your application.
